@@ -82,7 +82,7 @@ namespace livelySubProcess
                         {
                             wpItems.Clear();
                         }
-                        else if (Contains(text, "lively:add-pgm", StringComparison.OrdinalIgnoreCase))
+                        else if (text.Contains("lively:add-pgm", StringComparison.OrdinalIgnoreCase))
                         {
                             var msg = text.Split(' ');
                             if (int.TryParse(msg[1], out int value))
@@ -90,7 +90,7 @@ namespace livelySubProcess
                                 wpItems.Add(value);
                             }
                         }  
-                        else if(Contains(text, "lively:rmv-pgm", StringComparison.OrdinalIgnoreCase))
+                        else if(text.Contains("lively:rmv-pgm", StringComparison.OrdinalIgnoreCase))
                         {
                             var msg = text.Split(' ');
                             if (int.TryParse(msg[1], out int value))
@@ -101,7 +101,9 @@ namespace livelySubProcess
                     }
                 });
             }
-            catch { }
+            catch {
+                throw;
+            }
         }
 
         /// <summary>
@@ -121,7 +123,7 @@ namespace livelySubProcess
                 throw new ArgumentException("comp is not a member of StringComparison",
                                          "comp");
 
-            return str.IndexOf(substring, comp) >= 0;
+            return str.Contains(substring, comp);
         }
     }
 }

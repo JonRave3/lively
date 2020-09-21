@@ -29,6 +29,15 @@ namespace livelywpf
         public static ApplicationRulesViewModel AppRulesVM;
         public static LibraryViewModel LibraryVM;
 
+        private static Systray sysTray;
+        private static Views.SetupWizard.SetupView setupWizard = null;
+
+        private static Uri gitUpdateUri;
+        private static string gitUpdatChangelog;
+        private static bool _showUpdateDialog = false;
+
+        private static Views.AppUpdaterView updateWindow = null;
+
         #endregion //init
 
         #region app entry
@@ -77,8 +86,7 @@ namespace livelywpf
             }
         }
 
-        private static Systray sysTray;
-        private static Views.SetupWizard.SetupView setupWizard = null;
+
         private static void App_Startup(object sender, StartupEventArgs e)
         {
             sysTray = new Systray(SettingsVM.IsSysTrayIconVisible);
@@ -102,10 +110,9 @@ namespace livelywpf
         #endregion //app entry
 
         #region app updater
-
-        private static Uri gitUpdateUri;
-        private static string gitUpdatChangelog;
-        private static bool _showUpdateDialog = false;
+        /// <summary>
+        /// Attempts to fetch the latest version from github
+        /// </summary>
         private static async void AppUpdater()
         {
             if (IsMSIX)
@@ -169,7 +176,7 @@ namespace livelywpf
             }
         }
 
-        private static Views.AppUpdaterView updateWindow = null;
+        
         public static void ShowUpdateDialog()
         {
             _showUpdateDialog = false;
